@@ -1,0 +1,1 @@
+print("Numpy 준비")
