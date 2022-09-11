@@ -120,8 +120,3 @@ print("std=", b.std())
 
 # 모든 요소 곱
 print('product=', b.prod())
-
-print("벡터 계산 부분")
-
-x = np.array([1, 2, 3])
-
