@@ -66,6 +66,8 @@ b = np.array([4, 5, 6])
 # 각 요소 더하기
 c = a + b
 
+print("!!!!!!!!!!!!")
+
 print(c)
 
 # 각 요소 곱하기
@@ -86,14 +88,40 @@ print(c)
 array1 = [[1, 2], [3, 4]]
 array2 = [[5, 6], [7, 8]]
 
-
 a = np.array(array1)
 b = np.array(array2)
+
+print("기존")
 
 print(a)
 print(b)
 
 c = np.dot(a, b)
 
+print("결과:")
 print(c)
+
+# 모든 요소의 합
+a = [[1, 2, 3], [4, 5, 6]]
+s = np.sum(a)
+
+print(s)
+print(np.sum(a))
+
+b = np.array(a)
+
+print("열의 합=", b.sum(axis=0))
+
+# 평균
+print("mean=", b.mean())
+
+# 표준편차
+print("std=", b.std())
+
+# 모든 요소 곱
+print('product=', b.prod())
+
+print("벡터 계산 부분")
+
+x = np.array([1, 2, 3])
 
