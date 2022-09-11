@@ -57,3 +57,43 @@ print(a)
 
 a = arr[1:, 1:]
 print(a)
+
+# 배열간 연산 기능 #
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+# 각 요소 더하기
+c = a + b
+
+print(c)
+
+# 각 요소 곱하기
+c = a * b
+print(c)
+
+c = np.multiply(a, b)
+print(c)
+
+# 각 요소 나누기
+c = a / b
+print(c)
+
+c = np.divide(a, b)
+print(c)
+
+# 행렬의 곱
+array1 = [[1, 2], [3, 4]]
+array2 = [[5, 6], [7, 8]]
+
+
+a = np.array(array1)
+b = np.array(array2)
+
+print(a)
+print(b)
+
+c = np.dot(a, b)
+
+print(c)
+
