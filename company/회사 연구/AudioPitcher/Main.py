@@ -87,6 +87,11 @@ interact(draw_spec, y=fixed(y),
          hop_length=widgets.IntSlider(min=64, max=1024, step=8, value=512))
 
 
+"""
+용어설명
+n_mels : 주파수 해상도
+fmax : float 최대값
+"""
 def draw_mel(y, n_mels=128, n_fft=2048, hop_length=None):
     fig, ax = plt.subplots()
     S = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels,
@@ -108,6 +113,12 @@ plt.show()
 
 
 # 주파수 세기
+"""
+용어설명
+rms = root mean square(제곱평균제곱근)
+semilogy = 반대수 그래프 (세미 로그 그래프)
+
+"""
 def draw_power_db(y, frame_length_sec=0.01):
     fig, ax = plt.subplots(1, figsize=(8, 3))
     frame_length = librosa.time_to_samples(frame_length_sec, sr=sr)
@@ -117,12 +128,14 @@ def draw_power_db(y, frame_length_sec=0.01):
                               hop_length=hop_length
                               ).T
     ax.semilogy(rms)
+    # x축 제한 설정
     ax.set_xlim(
         librosa.time_to_frames(
             (0, 5),
             sr=sr,
             hop_length=hop_length)
     )
+    # 눈금 설정
     ax.set_xticks(
         librosa.time_to_frames(
             np.arange(6),
