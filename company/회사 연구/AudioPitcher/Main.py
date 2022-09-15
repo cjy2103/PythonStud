@@ -154,3 +154,95 @@ plt.show()
 interact(draw_power_db, y=fixed(y),
          frame_length_sec=widgets.FloatSlider(min=0.001, max=1.0, step=0.01, value=0.1, readout_format='.3f', ))
 plt.show()
+
+
+# F0 Estimation (다중 그래프)
+"""
+용어설명 
+f0 : fundamental frequency (기본 주파수)
+fmin : 최소 주파수 (C2 : 65HZ 의미) 
+fmax : 최대 주파수 (C7 : 2093HZ 의미) 
+HZ 단위에 대해서는 : https://pages.mtu.edu/~suits/notefreqs.html 에 나와 있음
+
+gs : GridSpec : 여러 그래프 같이 그리게 해줌 (3행 1열)
+subplots() : 여러개의 그래프 그리게 해줌
+"""
+
+f0, voiced_flag, voiced_probs = librosa.pyin(y,
+                                             fmin=librosa.note_to_hz('C2'),
+                                             fmax=librosa.note_to_hz('C7'))
+fig = plt.figure(figsize=(8, 6))
+gs = fig.add_gridspec(3, 1, hspace=.5)
+axs = gs.subplots()
+axs[0].plot(y)
+axs[0].set_title('waveform')
+axs[0].set_xticks(librosa.time_to_samples(np.arange(6)), np.arange(6))
+axs[0].set_xlim(librosa.time_to_samples((0, 5)))
+
+axs[1].plot(f0)
+axs[1].set_title('F0')
+axs[1].set_xlim(librosa.time_to_frames((0,5),sr=sr))
+axs[1].set_xticks(librosa.time_to_frames(np.arange(6), sr=sr), np.arange(6))
+
+axs[2].plot(voiced_probs)
+axs[2].set_title('Voice Prob')
+axs[2].set_xlim(librosa.time_to_frames((0,5),sr=sr))
+axs[2].set_xticks(librosa.time_to_frames(np.arange(6), sr=sr), np.arange(6))
+plt.show()
+
+# F0 Estimation (스펙 트럼)
+times = librosa.times_like(f0)
+D = librosa.amplitude_to_db(np.abs(librosa.stft(y)), ref=np.max)
+fig, axs = plt.subplots(2, figsize=(8, 8))
+img = librosa.display.specshow(D, x_axis='time', y_axis='log', ax=axs[0])
+axs[0].set_title('pYIN fundamental frequency estimation')
+fig.colorbar(img, ax=axs[0], format="%+2.f dB")
+axs[0].plot(times, f0, label='f0', color='cyan', linewidth=3)
+axs[0].legend(loc='upper right')
+
+img = librosa.display.specshow(D, x_axis='time', y_axis='log', ax=axs[1])
+axs[1].set_title('pYIN fundamental frequency estimation')
+fig.colorbar(img, ax=axs[1], format="%+2.f dB")
+axs[1].plot(times, f0, label='f0', color='cyan', linewidth=3, alpha=0.8)
+axs[1].legend(loc='upper right')
+axs[1].set_xlim(0.5, 2)
+ipd.Audio(y, rate=sr)
+plt.show()
+
+# MFCC ( Mel Frequency Cepstral Coefficient )
+"""
+용어설명 
+MFCC : Mel Spectrogram을 DCT(Discrete Consine Transform) 처리하면 얻게되는 coefficient
+-> mel scale로 변환한 스펙트로그램을 더 적은 값들로 압축하는 과정
+DCT
+"""
+
+mfcc = librosa.feature.mfcc(y)
+fig, ax = plt.subplots()
+img = ax.imshow(mfcc, aspect='auto', origin='lower')
+ax.set_xlim(librosa.time_to_frames((0,5),sr=sr))
+ax.set_xticks(librosa.time_to_frames(np.arange(6), sr=sr), np.arange(6))
+fig.colorbar(img, ax=ax)
+plt.show()
+
+# 위쪽의 MFCC 변화를 그래프로 표현 ( [0.5, 1, 1.5, 4]초 에서 MFCC 변화 )
+fig, axs = plt.subplots(4)
+axs[0].plot(mfcc[:,librosa.time_to_frames(0.5)])
+axs[1].plot(mfcc[:,librosa.time_to_frames(1)])
+axs[2].plot(mfcc[:,librosa.time_to_frames(1.5)])
+axs[3].plot(mfcc[:,librosa.time_to_frames(4)])
+plt.show()
+
+# Spectral Centroid
+"""
+용어설명 
+Spectral Centroid : 스펙트럼 중심은 스펙트럼을 특성화하기 위해 디지털 신호 처리에 사용되는 측정을 의미함
+ 스펙트럼의 질량 중심이 있는 위치를 나타냄
+"""
+
+centroid = librosa.feature.spectral_centroid(y).T
+fig, ax = plt.subplots()
+ax.plot(centroid)
+ax.set_xlim(librosa.time_to_frames((0,5),sr=sr))
+ax.set_xticks(librosa.time_to_frames(np.arange(6), sr=sr), np.arange(6))
+plt.show()
