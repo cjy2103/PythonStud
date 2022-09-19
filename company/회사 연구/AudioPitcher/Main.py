@@ -214,7 +214,7 @@ plt.show()
 용어설명 
 MFCC : Mel Spectrogram을 DCT(Discrete Consine Transform) 처리하면 얻게되는 coefficient
 -> mel scale로 변환한 스펙트로그램을 더 적은 값들로 압축하는 과정
-DCT
+DCT : Discrete Cosine Transform : DFT와 유사하지만 기저함수로 복소 지수함수가 아닌 코사인 함수를 사용한다. DFT보다 계산이 간단하고 실수만 출력한다는 장점이 있어서 DFT 대용으로 많이 사용된다.
 """
 
 mfcc = librosa.feature.mfcc(y)
