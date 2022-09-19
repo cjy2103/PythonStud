@@ -5,6 +5,18 @@ loop문 ( v )
 튜플 ( v )
 주석 처리 ( v )
 
+FFT
+DCT
+스펙트럼
+STFT
+멜 스펙트럼
+MFCC
+
+========= 라이브러리 ========
+Numpy ( v )
+Matplot ( v )
+Librosa
+
 ======= 오류 =========
 IntelliJ 파이썬 설치 오류 ( v )
 Encoding 오류 ( v )
