@@ -21,7 +21,7 @@ Numpy ( v )
 Matplot ( v )
 Librosa ( v )
 plotly ( ) 
-Pandas ( )
+Pandas ( v )
 
 ======= 오류 =========
 IntelliJ 파이썬 설치 오류 ( v )
