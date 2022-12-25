@@ -28,3 +28,5 @@ Pandas ( v )
 ======= 오류 =========
 IntelliJ 파이썬 설치 오류 ( v )
 Encoding 오류 ( v )
+pip is configured with locations that require TLS/SSL ( v )
+'pip' or 'conda' 용어가 cmdlet, 함수, 스크립트 파일 또는 실행할 수 있는 프로그램 이름으로 인식되지 않습니다. ( v )
